@@ -23,7 +23,13 @@ function App() {
   }
  
   function rolldice(){
-     setDice(oldDice => oldDice.map(die =>  die.isHeld ? die : { ...die, value: Math.ceil(Math.random() * 6) } ))
+    if(!gameWon){
+
+      setDice(oldDice => oldDice.map(die =>  die.isHeld ? die : { ...die, value: Math.ceil(Math.random() * 6) } ))
+    }
+    else{
+      setDice(generateAllNewDice())
+    }
   }
 
   function hold(id){
@@ -39,7 +45,7 @@ function App() {
     <h1 className="font-semibold text-2xl flex justify-center">Tenzies</h1>
             <p className="text-gray-600 flex justify-center">Roll until all dice are the same. Click each die to freeze <br />
              it at its current value between rolls.</p>
-     <div className="w-[35%] border border-gray-800 p-5 grid grid-cols-5 gap-4 mx-auto mt-10 rounded">
+     <div className="w-full max-w-md border border-gray-800 p-5 grid grid-cols-5 gap-4 mx-auto mt-10 rounded">
      {dieElement}
      </div>
     <div className='flex justify-center items-center mt-5'>
